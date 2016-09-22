@@ -1,3 +1,11 @@
 public class Student extends UniversityPerson{
-	public Boolean isEnrolled;
+	private Boolean isEnrolled;
+
+	public Boolean getIsEnrolled() {
+		return isEnrolled;
+	}
+
+	public void setIsEnrolled(Boolean isEnrolled) {
+		this.isEnrolled = isEnrolled;
+	}
 }
