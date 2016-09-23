@@ -4,6 +4,12 @@ public class UniversityPerson {
 	private String address;
 	private Integer uuid;
 
+	public UniversityPerson(String name, String phoneNumber, String address, Integer uuid) {
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.uuid = uuid;
+	}
 	public String getName() {
 		return name;
 	}
