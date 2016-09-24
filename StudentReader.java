@@ -23,6 +23,6 @@ public class StudentReader extends GeneralReader {
 		String name = line[nameIndex].trim();
 		String address = line[addressIndex].trim();
 		String phoneNumber = line[phoneNumberIndex].trim();
-		return new Student(name, phoneNumber, address, uuid);
+		return new Student(uuid, name, address, phoneNumber);
 	}
 }

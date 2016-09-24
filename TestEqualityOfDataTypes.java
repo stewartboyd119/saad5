@@ -12,9 +12,6 @@ public class TestEqualityOfDataTypes {
 	Student student4;
 
 	Student student1other;
-	Student student2other;
-	Student student3other;
-	Student student4other;
 
 	Instructor professor1;
 	Instructor professor2;
@@ -22,9 +19,6 @@ public class TestEqualityOfDataTypes {
 	Instructor professor4;
 
 	Instructor professor1other;
-	Instructor professor2other;
-	Instructor professor3other;
-	Instructor professor4other;
 
 	Course course1;
 	Course course2;
@@ -34,11 +28,6 @@ public class TestEqualityOfDataTypes {
 	Course course6;
 
 	Course course1other;
-	Course course2other;
-	Course course3other;
-	Course course4other;
-	Course course5other;
-	Course course6other;
 
 	PerformanceRecord performanceRecord1;
 	PerformanceRecord performanceRecord2;
@@ -56,52 +45,46 @@ public class TestEqualityOfDataTypes {
 	@Before
 	public void setUp() throws Exception {
 		String name = 	"name";
-		String name2 = new String(name);
+		String nameCopy = new String(name);
+		String name2 = "other_name";
 		String number = "7137755439";
-		String number2 = new String(number);
+		String numberCopy = new String(number);
+		String number2 = "other7137755439";
 		String address = "address";
-		String address2 = new String("address");
+		String addressCopy = new String("address");
+		String address2 = "other_Address";
 		String description = "description";
-		String description2 = new String(description);
+		String descriptionCopy = new String(description);
+		String description2 = "other_description";
 		String comment = "comment";
-		String comment2 = new String(comment);
+		String commentCopy = new String(comment);
+		String comment2 = "other_comment";
 		Integer id = 1;
+		Integer id2 = 2;
 		Integer courseId = 2;
 		Integer proffId = 3;
-		student1 = new Student(name, number, address, id);
-		student2 = new Student(name, "1", address, id);
-		student3 = new Student(name, number, "1", id);
-		student4 = new Student(name, number, address, 2);
+		student1 = new Student(id, name, address,number);
+		student2 = new Student(id, name2, address,number);
+		student3 = new Student(id, name, address2,number);
+		student4 = new Student(id2, name, address, number);
 
-		student1other = new Student(name2, number2, address2, id);
-		student2other = new Student(name2, "1", address2, id);
-		student3other = new Student(name2, number2, "1", id);
-		student4other = new Student(name2, number2, address2, 2);
+		student1other = new Student(id, nameCopy, addressCopy,numberCopy);
 
-		professor1 = new Instructor(name, number, address, id);
-		professor2 = new Instructor(name, "1", address, id);
-		professor3 = new Instructor(name, number, "1", id);
-		professor4 = new Instructor(name, number, address, 2);
+		professor1 = new Instructor(id, name, address,number);
+		professor2 = new Instructor(id, name2, address,number);
+		professor3 = new Instructor(id, name, address2,number);
+		professor4 = new Instructor(id2, name, address, number);
 
-		professor1other = new Instructor(name2, number2, address2, id);
-		professor2other = new Instructor(name2, "1", address2, id);
-		professor3other = new Instructor(name2, number2, "1", id);
-		professor4other = new Instructor(name2, number2, address2, 2);
+		professor1other = new Instructor(id, nameCopy, addressCopy,numberCopy);
 
 		course1 = new Course(name, description,  id, true, true, true);
-		course2 = new Course(name, description, 2, true, true, true);
+		course2 = new Course(name, description, id2, true, true, true);
 		course3 = new Course(name, description, id, false, true, true);
 		course4 = new Course(name, description, id, true, false, true);
 		course5 = new Course(name, description, id, true, true, false);
-		course6 = new Course("stew", description, id, true, true, true);
+		course6 = new Course(name2, description, id, true, true, true);
 
-		course1other = new Course(name2, description2,  id, true, true, true);
-		course2other = new Course(name2, description2, 2, true, true, true);
-		course3other = new Course(name2, description2, id, false, true, true);
-		course4other = new Course(name2, description2, id, true, false, true);
-		course5other = new Course(name2, description2, id, true, true, false);
-		course6other = new Course("stew", description2, id, true, true, true);
-
+		course1other = new Course(nameCopy, descriptionCopy,  id, true, true, true);
 
 		performanceRecord1 = new PerformanceRecord(id, courseId, proffId, comment, Grade.A);
 		performanceRecord2 = new PerformanceRecord(id + 1, courseId, proffId, comment, Grade.A);
@@ -110,16 +93,13 @@ public class TestEqualityOfDataTypes {
 		performanceRecord5 = new PerformanceRecord(id, courseId, proffId, "notcomment", Grade.A);
 		performanceRecord6 = new PerformanceRecord(id, courseId, proffId, comment, Grade.B);
 
-		performanceRecord1other = new PerformanceRecord(id, courseId, proffId, comment2, Grade.A);
-		assertTrue(student1.getName() != student2other.getName());
-		assertTrue(student1.getName().equals(student2other.getName()));
-
-		assertTrue(student1.getPhoneNumber() != student3other.getPhoneNumber());
-		assertTrue(student1.getPhoneNumber().equals(student3other.getPhoneNumber()));
-
-		assertTrue(student1.getAddress() != student4other.getAddress());
-		assertTrue(student1.getAddress().equals(student4other.getAddress()));
-		
+		performanceRecord1other = new PerformanceRecord(id, courseId, proffId, commentCopy, Grade.A);
+		org.junit.Assert.assertNotEquals(name, name2);
+		org.junit.Assert.assertNotEquals(number, number2);
+		org.junit.Assert.assertNotEquals(address, address2);
+		org.junit.Assert.assertNotEquals(description, description2);
+		org.junit.Assert.assertNotEquals(comment, comment2);
+		org.junit.Assert.assertTrue(id != id2);
 	}
 
 	@After
@@ -137,9 +117,6 @@ public class TestEqualityOfDataTypes {
 	@Test
 	public void testStudentEqualToCopy() {
 		assertTrue(student1.equals(student1other));
-		assertTrue(student2.equals(student2other));
-		assertTrue(student3.equals(student3other));
-		assertTrue(student4.equals(student4other));
 	}
 
 	@Test
@@ -162,9 +139,6 @@ public class TestEqualityOfDataTypes {
 	@Test
 	public void testInstructorEqualToCopy() {
 		assertTrue(professor1.equals(professor1other));
-		assertTrue(professor2.equals(professor2other));
-		assertTrue(professor3.equals(professor3other));
-		assertTrue(professor4.equals(professor4other));
 	}
 	@Test
 	public void testInstructorNotEqual() {
@@ -188,9 +162,6 @@ public class TestEqualityOfDataTypes {
 	@Test
 	public void testCourseEqualToCopy() {
 		assertTrue(course1.equals(course1other));
-		assertTrue(course2.equals(course2other));
-		assertTrue(course3.equals(course3other));
-		assertTrue(course4.equals(course4other));
 	}
 
 	@Test

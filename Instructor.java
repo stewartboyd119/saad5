@@ -1,5 +1,5 @@
 public class Instructor extends UniversityPerson {
-	Instructor(String name, String phoneNumber, String address, Integer uuid) {
-		super(name, phoneNumber, address, uuid);
+	Instructor(Integer uuid, String name, String address, String phoneNumber) {
+		super(uuid, name, address, phoneNumber);
 	}
 }

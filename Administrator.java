@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Administrator {
@@ -6,14 +7,42 @@ public class Administrator {
 	String recordsFpath = "records.csv";
 	String coursesFpath = "courses.csv";
 
-	public void readData() {
+	List<Student> students;
+	List<Instructor> instructors;
+	List<PerformanceRecord> performanceRecords;
+	List<Course> courses;
+
+	public void readAllData() {
+		readStudents();
+		readInstructors();
+		readPerformanceRecords();
+		readCourses();
+	}
+
+	public void readStudents() {
 		StudentReader studentReader = new StudentReader(studentsFpath);
-		List<Student> students = studentReader.read();
+		students = studentReader.read();
+	}
+
+	public void readInstructors() {
 		InstructorReader instructorReader = new InstructorReader(instructorsFpath);
-		List<Instructor> instructors = instructorReader.read();
+		instructors = instructorReader.read();		
+	}
+
+	public void readPerformanceRecords() {
 		PerformanceRecordReader performanceRecordReader = new PerformanceRecordReader(recordsFpath);
-		List<PerformanceRecord> performanceRecords = performanceRecordReader.read();
+		performanceRecords = performanceRecordReader.read();
+	}
+
+	public void readCourses() {
 		CourseReader courseReader = new CourseReader(coursesFpath);
-		List<Course> courses = courseReader.read();
+		courses = courseReader.read();
+	}
+
+	public void clearAllData() {
+		students = new ArrayList<Student>();
+		instructors = new ArrayList<Instructor>();
+		performanceRecords = new ArrayList<PerformanceRecord>();
+		courses = new ArrayList<Course>();
 	}
 }

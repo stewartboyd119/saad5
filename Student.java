@@ -1,8 +1,8 @@
 public class Student extends UniversityPerson{
 	private Boolean isEnrolled;
 
-	Student(String name, String phoneNumber, String address, Integer uuid) {
-		super(name, phoneNumber, address, uuid);
+	Student(Integer uuid, String name, String address, String phoneNumber) {
+		super(uuid, name, address, phoneNumber);
 	}
 	public Boolean getIsEnrolled() {
 		return isEnrolled;

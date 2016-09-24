@@ -23,7 +23,7 @@ public class InstructorReader extends GeneralReader{
 		String name = line[nameIndex].trim();
 		String address = line[addressIndex].trim();
 		String phoneNumber = line[phoneNumberIndex].trim();
-		return new Instructor(name, phoneNumber, address, uuid);		
+		return new Instructor(uuid, name, address, phoneNumber);		
 	}
 
 	public static void main(String[] args) {
