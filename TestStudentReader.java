@@ -39,7 +39,10 @@ public class TestStudentReader {
 		studentsCorrect.add(new Student(21,"JEFFREY CLAYTON","600 Bridle Lane 70941","6222277693"));
 		studentsCorrect.add(new Student(22,"SUE VELASQUEZ","204 Riverside Drive 72894","7543928902"));
 		studentsCorrect.add(new Student(24,"DWIGHT WILCOX","981 Laurel Street 49148","7571682264"));
-		assertEquals(studentsFromRead, studentsCorrect);
+		assertTrue(studentsFromRead.size() == studentsCorrect.size());
+		for (Integer i = 0; i < studentsFromRead.size(); i+=1) {
+			assertTrue(studentsFromRead.get(i).equals(studentsCorrect.get(i)));
+		}
 	}
 
 }

@@ -47,6 +47,6 @@ public class CourseReader extends GeneralReader {
 			}
 		}
 		
-		return new Course(title, "", id, isAvailableFall, isAvailableSpring, isAvailableSummer);		
+		return new Course(id, title, isAvailableFall, isAvailableSpring, isAvailableSummer);		
 	}
 }

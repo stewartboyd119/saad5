@@ -46,4 +46,35 @@ public class TestCourseReader {
 		assertTrue(course.getIsAvailableSpring());
 		assertTrue(course.getIsAvailableSummer());
 	}
+
+	@Test
+	public void testReadingAFile() {
+		CourseReader courseReader = new CourseReader("courses.csv");
+		java.util.List<Course> coursesFromRead = courseReader.read();
+		java.util.List<Course> coursesCorrect = new java.util.ArrayList<Course>();
+
+
+		coursesCorrect.add(new Course(2,"Computer programming",false, true, false));
+		coursesCorrect.add(new Course(4,"Data structures", false, true, false));
+		coursesCorrect.add(new Course(6,"Software engineering", true, true, false));
+		coursesCorrect.add(new Course(8,"Computer architecture", true, true, false));
+		coursesCorrect.add(new Course(10,"Operating systems", false, false, true));
+		coursesCorrect.add(new Course(13,"Machine learning", false, false, false));
+		coursesCorrect.add(new Course(16,"Computer security", false, true, true));
+		coursesCorrect.add(new Course(17,"Relational databases",false, true, false));
+		coursesCorrect.add(new Course(19,"Structured Storage",true, false, true));
+		coursesCorrect.add(new Course(20,"Programming language pragmatics", false, true, false));
+		coursesCorrect.add(new Course(23,"Algorithm design", true, true, false));
+		coursesCorrect.add(new Course(24,"Web designing",false, true, true));
+		coursesCorrect.add(new Course(25,"Artificial intelligence", false, true, true));
+		coursesCorrect.add(new Course(28,"Computer graphics", false, true, true));
+		coursesCorrect.add(new Course(29,"Parallel computing",true, true, false));
+
+		assertTrue(coursesFromRead.size() == coursesCorrect.size());
+		for (Integer i = 0; i < coursesFromRead.size(); i+=1) {
+			System.out.println(i);
+			assertTrue(coursesFromRead.get(i).equals(coursesCorrect.get(i)));
+		}
+	
+	}
 }

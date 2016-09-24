@@ -77,14 +77,14 @@ public class TestEqualityOfDataTypes {
 
 		professor1other = new Instructor(id, nameCopy, addressCopy,numberCopy);
 
-		course1 = new Course(name, description,  id, true, true, true);
-		course2 = new Course(name, description, id2, true, true, true);
-		course3 = new Course(name, description, id, false, true, true);
-		course4 = new Course(name, description, id, true, false, true);
-		course5 = new Course(name, description, id, true, true, false);
-		course6 = new Course(name2, description, id, true, true, true);
+		course1 = new Course(id, name, true, true, true);
+		course2 = new Course(id2, name, true, true, true);
+		course3 = new Course(id, name, false, true, true);
+		course4 = new Course(id, name, true, false, true);
+		course5 = new Course(id, name, true, true, false);
+		course6 = new Course(id, name2, true, true, true);
 
-		course1other = new Course(nameCopy, descriptionCopy,  id, true, true, true);
+		course1other = new Course(id, nameCopy, true, true, true);
 
 		performanceRecord1 = new PerformanceRecord(id, courseId, proffId, comment, Grade.A);
 		performanceRecord2 = new PerformanceRecord(id + 1, courseId, proffId, comment, Grade.A);

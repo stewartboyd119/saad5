@@ -7,12 +7,12 @@ public class Course {
 	private Boolean isAvailableSummer;
 	
 
-	Course(String title, String description, Integer id,
+	Course(Integer id, String title, 
 			Boolean isAvailableFall,
 			Boolean isAvailableSpring,
 			Boolean isAvailableSummer){
 		this.title = title;
-		this.description = description;
+		this.description = "";
 		this.id = id;
 		this.setIsAvailableFall(isAvailableFall);
 		this.setIsAvailableSpring(isAvailableSpring);
