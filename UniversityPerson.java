@@ -34,5 +34,25 @@ public class UniversityPerson {
 	public void setUuid(Integer uuid) {
 		this.uuid = uuid;
 	}
-	
+
+	public Boolean equals(UniversityPerson universityPerson) {
+		if (!this.name.equals(universityPerson.name)) {
+			return false;
+		}
+		if (!this.phoneNumber.equals(universityPerson.phoneNumber)) {
+			return false;
+		}
+		if (!this.address.equals(universityPerson.address)) {
+			return false;
+		}
+		if (this.uuid != universityPerson.uuid){
+			return false;
+		}
+		return true;
+	}
+
+	public Boolean notEquals(UniversityPerson universityPerson) {
+		return !this.equals(universityPerson);
+	}
+
 }

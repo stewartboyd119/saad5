@@ -64,4 +64,30 @@ public class Course {
 	public Boolean isEqual(Course course) {
 		return this.id == course.id;
 	}
+
+	public Boolean equals(Course course) {
+		if (this.id != course.id ) {
+			return false;
+		}
+		if (!this.title.equals(course.title)) {
+			return false;
+		}
+		if (!this.description.equals(course.description)) {
+			return false;
+		}
+		if (this.isAvailableFall != course.isAvailableFall) {
+			return false;
+		}
+		if (this.isAvailableSpring != course.isAvailableSpring) {
+			return false;
+		}
+		if (this.isAvailableSummer != course.isAvailableSummer) {
+			return false;
+		}
+		return true;
+	}
+
+	public Boolean notEquals(Course course) {
+		return !this.equals(course);
+	}
 }

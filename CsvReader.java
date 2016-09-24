@@ -92,8 +92,9 @@ public class CsvReader implements Iterable<String []>{
 		// TODO Auto-generated method stub
 
 
-		URL resource = CsvReader.class.getResource("test_case_0/courses.csv");
-		File newFile = Paths.get(resource.toURI()).toFile();
+		//URL resource = CsvReader.class.getResource("test_case_0/courses.csv");
+		File newFile = new File("students.csv");
+		//File newFile = Paths.get(resource.toURI()).toFile();
 		CsvReader csvReader = new CsvReader(newFile.getAbsolutePath());
 		  for (String[] line : csvReader) {
 			  for (String item : line) {
