@@ -45,7 +45,7 @@ public class UniversityPerson {
 		if (!this.address.equals(universityPerson.address)) {
 			return false;
 		}
-		if (this.uuid != universityPerson.uuid){
+		if (!this.uuid.equals(universityPerson.uuid)){
 			return false;
 		}
 		return true;

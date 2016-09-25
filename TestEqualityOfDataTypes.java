@@ -59,7 +59,8 @@ public class TestEqualityOfDataTypes {
 		String comment = "comment";
 		String commentCopy = new String(comment);
 		String comment2 = "other_comment";
-		Integer id = 1;
+		Integer id = 1111;
+		Integer idCopy = new Integer(id);
 		Integer id2 = 2;
 		Integer courseId = 2;
 		Integer proffId = 3;
@@ -68,14 +69,14 @@ public class TestEqualityOfDataTypes {
 		student3 = new Student(id, name, address2,number);
 		student4 = new Student(id2, name, address, number);
 
-		student1other = new Student(id, nameCopy, addressCopy,numberCopy);
+		student1other = new Student(idCopy, nameCopy, addressCopy,numberCopy);
 
 		professor1 = new Instructor(id, name, address,number);
 		professor2 = new Instructor(id, name2, address,number);
 		professor3 = new Instructor(id, name, address2,number);
 		professor4 = new Instructor(id2, name, address, number);
 
-		professor1other = new Instructor(id, nameCopy, addressCopy,numberCopy);
+		professor1other = new Instructor(idCopy, nameCopy, addressCopy,numberCopy);
 
 		course1 = new Course(id, name, true, true, true);
 		course2 = new Course(id2, name, true, true, true);
@@ -84,7 +85,7 @@ public class TestEqualityOfDataTypes {
 		course5 = new Course(id, name, true, true, false);
 		course6 = new Course(id, name2, true, true, true);
 
-		course1other = new Course(id, nameCopy, true, true, true);
+		course1other = new Course(idCopy, nameCopy, true, true, true);
 
 		performanceRecord1 = new PerformanceRecord(id, courseId, proffId, comment, Grade.A);
 		performanceRecord2 = new PerformanceRecord(id + 1, courseId, proffId, comment, Grade.A);
@@ -93,7 +94,7 @@ public class TestEqualityOfDataTypes {
 		performanceRecord5 = new PerformanceRecord(id, courseId, proffId, "notcomment", Grade.A);
 		performanceRecord6 = new PerformanceRecord(id, courseId, proffId, comment, Grade.B);
 
-		performanceRecord1other = new PerformanceRecord(id, courseId, proffId, commentCopy, Grade.A);
+		performanceRecord1other = new PerformanceRecord(idCopy, courseId, proffId, commentCopy, Grade.A);
 		org.junit.Assert.assertNotEquals(name, name2);
 		org.junit.Assert.assertNotEquals(number, number2);
 		org.junit.Assert.assertNotEquals(address, address2);
@@ -140,6 +141,7 @@ public class TestEqualityOfDataTypes {
 	public void testInstructorEqualToCopy() {
 		assertTrue(professor1.equals(professor1other));
 	}
+
 	@Test
 	public void testInstructorNotEqual() {
 		assertTrue(professor1.notEquals(professor2));

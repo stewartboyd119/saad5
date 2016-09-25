@@ -65,7 +65,6 @@ public class CsvReader implements Iterable<String []>{
     			return true;
     		}
     		try {
-    			System.out.println("hasNext");
     			currentLine = br.readLine();
     			hasNextCount += 1;
     		} catch (IOException e){
@@ -75,7 +74,6 @@ public class CsvReader implements Iterable<String []>{
     	}
 
     	public String[] next() {
-    		System.out.println("next");
     		if(!this.hasNext()) {
     			throw new NoSuchElementException();
     		}

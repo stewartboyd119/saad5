@@ -61,12 +61,24 @@ public class Course {
 		this.isAvailableSummer = isAvailableSummer;
 	}
 
+	public Boolean isAvailable(Semester semester) {
+		switch (semester) {
+		case Fall:
+			return isAvailableFall;
+		case Spring:
+			return isAvailableSpring;
+		case Summer:
+			return isAvailableSummer;
+		default:
+			return false;
+		}
+	}
 	public Boolean isEqual(Course course) {
 		return this.id == course.id;
 	}
 
 	public Boolean equals(Course course) {
-		if (this.id != course.id ) {
+		if (!this.id.equals(course.id) ) {
 			return false;
 		}
 		if (!this.title.equals(course.title)) {

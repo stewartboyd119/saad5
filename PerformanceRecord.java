@@ -56,13 +56,13 @@ public class PerformanceRecord {
 
 
 	public Boolean equals(PerformanceRecord performanceRecord) {
-		if (this.studentID != performanceRecord.studentID) {
+		if (!this.studentID.equals(performanceRecord.studentID)) {
 			return false;
 		}
-		if (this.courseID != performanceRecord.courseID) {
+		if (!this.courseID.equals(performanceRecord.courseID)) {
 			return false;
 		}
-		if (this.instructorID != performanceRecord.instructorID) {
+		if (!this.instructorID.equals(performanceRecord.instructorID)) {
 			return false;
 		}
 		if (!this.comment.equals(performanceRecord.comment)){
