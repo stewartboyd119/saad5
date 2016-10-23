@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.ArrayList;
+
 public class Course {
 	private String title;
 	private String description;
@@ -5,7 +8,22 @@ public class Course {
 	private Boolean isAvailableFall;
 	private Boolean isAvailableSpring;
 	private Boolean isAvailableSummer;
+	private HashSet<Course> prereqs;
 	
+
+	Course(Integer id, String title, 
+			Boolean isAvailableFall,
+			Boolean isAvailableSpring,
+			Boolean isAvailableSummer,
+			HashSet<Course> prereqs){
+		this.title = title;
+		this.description = "";
+		this.id = id;
+		this.setIsAvailableFall(isAvailableFall);
+		this.setIsAvailableSpring(isAvailableSpring);
+		this.setIsAvailableSummer(isAvailableSummer);
+		this.setPrereqs(prereqs);
+	}
 
 	Course(Integer id, String title, 
 			Boolean isAvailableFall,
@@ -17,7 +35,9 @@ public class Course {
 		this.setIsAvailableFall(isAvailableFall);
 		this.setIsAvailableSpring(isAvailableSpring);
 		this.setIsAvailableSummer(isAvailableSummer);
+		this.setPrereqs(new HashSet<Course>());
 	}
+
 
 	public void setTitleDescriptionID(String title, String description, Integer id) {
 		this.title = title;
@@ -102,4 +122,13 @@ public class Course {
 	public Boolean notEquals(Course course) {
 		return !this.equals(course);
 	}
+
+	public HashSet<Course> getPrereqs() {
+		return prereqs;
+	}
+
+	public void setPrereqs(HashSet<Course> prereqs) {
+		this.prereqs = prereqs;
+	}
+
 }

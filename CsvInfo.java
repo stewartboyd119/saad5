@@ -18,7 +18,6 @@ public class CsvInfo {
 			}
 			numBlankRows += 1;
 		}
-
 	}
 
 	public void reset() {

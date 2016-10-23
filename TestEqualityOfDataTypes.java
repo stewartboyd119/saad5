@@ -27,6 +27,10 @@ public class TestEqualityOfDataTypes {
 	Course course5;
 	Course course6;
 
+	Course course1WithPrereqs1;
+	Course course1WithPrereqs2;
+	Course course1WithPrereqs3;
+
 	Course course1other;
 
 	PerformanceRecord performanceRecord1;
@@ -41,6 +45,18 @@ public class TestEqualityOfDataTypes {
 	PerformanceRecord performanceRecord4other;
 	PerformanceRecord performanceRecord5other;
 	PerformanceRecord performanceRecord6other;
+
+	CourseInstance courseInstance1;
+	CourseInstance courseInstance2;
+	CourseInstance courseInstance3;
+	CourseInstance courseInstance4;
+	CourseInstance courseInstance1copy;
+
+	Assignment assignment1;
+	Assignment assignment2;
+	Assignment assignment3;
+	Assignment assignment4;
+	Assignment assignment1copy;
 
 	@Before
 	public void setUp() throws Exception {
@@ -85,6 +101,12 @@ public class TestEqualityOfDataTypes {
 		course5 = new Course(id, name, true, true, false);
 		course6 = new Course(id, name2, true, true, true);
 
+		course1WithPrereqs1 = course1;
+		course1WithPrereqs2 = course1;
+		course1WithPrereqs3 = course1;
+		course1WithPrereqs1.getPrereqs().add(course2);
+		course1WithPrereqs2.getPrereqs().add(course2);
+		course1WithPrereqs3.getPrereqs().add(course3);
 		course1other = new Course(idCopy, nameCopy, true, true, true);
 
 		performanceRecord1 = new PerformanceRecord(id, courseId, proffId, comment, Grade.A);
@@ -159,11 +181,51 @@ public class TestEqualityOfDataTypes {
 		assertTrue(course2.equals(course2));
 		assertTrue(course3.equals(course3));
 		assertTrue(course4.equals(course4));
+		assertTrue(course1WithPrereqs1.equals(course1WithPrereqs1));
+		assertTrue(course1WithPrereqs2.equals(course1WithPrereqs2));
+		assertTrue(course1WithPrereqs3.equals(course1WithPrereqs3));
+		
 	}
+
+	@Test
+	public void testCourseInstanceEqualSelf() {
+		assertTrue(courseInstance1.equals(courseInstance1));
+		assertTrue(courseInstance2.equals(courseInstance2));
+		assertTrue(courseInstance3.equals(courseInstance3));	
+		assertTrue(courseInstance4.equals(courseInstance4));	
+	}
+
+	@Test
+	public void testCourseInstanceEqualCopy() {
+		assertTrue(courseInstance1.equals(courseInstance1copy));
+	}
+
+	@Test
+	public void testAssignmentEqualSelf() {
+		assertTrue(assignment1.equals(assignment1));
+		assertTrue(assignment2.equals(assignment2));
+		assertTrue(assignment3.equals(assignment3));	
+	}
+
+	@Test
+	public void testAssignmentEqualCopy() {
+		assertTrue(assignment1.equals(assignment1copy));
+	}
+
 
 	@Test
 	public void testCourseEqualToCopy() {
 		assertTrue(course1.equals(course1other));
+	}
+
+	@Test
+	public void testCourseWithPrereqsEqualsAnotherWithSamePrereqs() {
+		assertTrue(course1WithPrereqs1.equals(course1WithPrereqs2));
+	}
+
+	@Test
+	public void testCourseWithPrereqsEqualsAnotherWithDiffPrereqs() {
+		assertFalse(course1WithPrereqs3.equals(course1WithPrereqs1));
 	}
 
 	@Test
@@ -208,5 +270,19 @@ public class TestEqualityOfDataTypes {
 		assertTrue(performanceRecord4.notEquals(performanceRecord5));
 		assertTrue(performanceRecord4.notEquals(performanceRecord6));
 		assertTrue(performanceRecord5.notEquals(performanceRecord6));
+	}
+
+	@Test
+	public void testCourseInstanceNotEqualSelf() {
+		assertTrue(courseInstance1.notEquals(courseInstance2));
+		assertTrue(courseInstance1.notEquals(courseInstance3));
+		assertTrue(courseInstance1.notEquals(courseInstance4));	
+	}
+
+	@Test
+	public void testAssignmentNotEqualSelf() {
+		assertTrue(assignment1.notEquals(assignment2));
+		assertTrue(assignment1.notEquals(assignment3));
+		assertTrue(assignment1.notEquals(assignment4));	
 	}
 }

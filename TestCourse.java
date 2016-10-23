@@ -24,10 +24,22 @@ public class TestCourse {
 		assertTrue(courseAvailableAllSemesters.isAvailable(Semester.Fall));
 		assertTrue(courseAvailableAllSemesters.isAvailable(Semester.Spring));
 		assertTrue(courseAvailableAllSemesters.isAvailable(Semester.Summer));
+		//prereq should be empty when use this sort of construcotr
+		assertTrue(courseAvailableAllSemesters.getPrereqs().isEmpty());
 
 		assertFalse(courseNotAvailableAnySemesters.isAvailable(Semester.Fall));
 		assertFalse(courseNotAvailableAnySemesters.isAvailable(Semester.Spring));
 		assertFalse(courseNotAvailableAnySemesters.isAvailable(Semester.Summer));
+	}
+
+	@Test
+	public void testCourseConstructorWithPrereqs() {
+		java.util.HashSet<Course> prereqs = new java.util.HashSet<Course>();
+		prereqs.add(courseAvailableAllSemesters);
+		prereqs.add(courseNotAvailableAnySemesters);
+		
+		Course course = new Course(1, "title", true, true, true, prereqs);
+		assertEquals(course.getPrereqs(), prereqs);
 	}
 
 }

@@ -6,18 +6,49 @@ public class Administrator {
 	String instructorsFpath = "instructors.csv";
 	String recordsFpath = "records.csv";
 	String coursesFpath = "courses.csv";
+	String assignmentsFpath = "assignments.csv";
+	String requestsFpath = "requests.csv";
+	String prereqsFpath = "prereqs.csv";
 
-	List<Student> students;
-	List<Instructor> instructors;
-	List<PerformanceRecord> performanceRecords;
-	List<Course> courses;
-
+	private List<Student> students;
+	private List<Instructor> instructors;
+	private List<PerformanceRecord> performanceRecords;
+	//List<Course> courses;
+	private CourseCatalogue courseCatalogue;
+	private List<Assignment> assignments = new ArrayList<Assignment>();
+	private List<Request> requests = new ArrayList<Request>();
+	private List<Prereq> prereqs = new ArrayList<Prereq>();
 
 	public void readAllData() {
 		readStudents();
 		readInstructors();
 		readPerformanceRecords();
 		readCourses();
+		readAssignments();
+		readRequests();
+		readPrereqs();
+	}
+
+	public void updateCourseWithPrereqs() {
+		
+	}
+
+	public Instructor getInstructorByID(Integer id) throws IDNotFound {
+		for (Instructor instructor : instructors) {
+			if (instructor.getUuid().equals(id)) {
+				return instructor;
+			}
+		}
+		throw new IDNotFound();		
+	}
+
+	public Student getStudentByID(Integer id) throws IDNotFound {
+		for (Student student: students) {
+			if (student.getUuid().equals(id)) {
+				return student;
+			}
+		}
+		throw new IDNotFound();
 	}
 
 	public void readStudents() {
@@ -37,14 +68,31 @@ public class Administrator {
 
 	public void readCourses() {
 		CourseReader courseReader = new CourseReader(coursesFpath);
-		courses = courseReader.read();
+		List<Course> courses = courseReader.read();
+		courseCatalogue = new CourseCatalogue(courses);
+	}
+
+	public void readAssignments() {
+		AssignmentReader assignmentReader = new AssignmentReader(this.assignmentsFpath);
+		assignments = assignmentReader.read();
+	}
+
+	public void readPrereqs() {
+		PrereqReader prereqsReader = new PrereqReader(this.prereqsFpath);
+		prereqs = prereqsReader.read();
+	}
+
+	public void readRequests() {
+		RequestReader requestReader = new RequestReader(this.requestsFpath);
+		requests = requestReader.read();
 	}
 
 	public void clearAllData() {
 		students = new ArrayList<Student>();
 		instructors = new ArrayList<Instructor>();
 		performanceRecords = new ArrayList<PerformanceRecord>();
-		courses = new ArrayList<Course>();
+		courseCatalogue.clearCourses();
+		//courses = new ArrayList<Course>();
 	}
 
 
@@ -88,7 +136,7 @@ public class Administrator {
 		//for(PerformanceRecord record : performanceRecords) {
 		//	uniqueStudentIdsFromRecords.add(record.getStudentID());
 		//}
-		for (Course course : courses) {
+		for (Course course : courseCatalogue) {
 			for (PerformanceRecord record : performanceRecords) {
 				if (course.getID().equals(record.getCourseID())) {
 					for (Student student : students) {
@@ -105,12 +153,12 @@ public class Administrator {
 	}
 
 	public Integer coursesWithoutStudents() {
-		return courses.size() - coursesWithStudents();
+		return courseCatalogue.numberOfCourses() - coursesWithStudents();
 	}
 
 	public Integer coursesInSemester(Semester semester) {
 		Integer count = 0;
-		for (Course course : courses) {
+		for (Course course : courseCatalogue) {
 			if (course.isAvailable(semester)) {
 				count += 1;
 			}
@@ -126,7 +174,7 @@ public class Administrator {
 		output[2] = studentsWithoutClasses();
 		output[3] = instructors.size();
 		output[4] = instructorsWithoutClasses();
-		output[5] = courses.size();
+		output[5] = courseCatalogue.numberOfCourses();
 		output[6] = coursesWithoutStudents();
 		output[7] = coursesInSemester(Semester.Fall);
 		output[8] = coursesInSemester(Semester.Spring);
@@ -140,4 +188,39 @@ public class Administrator {
 			System.out.println(elem);
 		}
 	}
+
+	public static void main(String[] args) {
+		Administrator administrator = new Administrator();
+		administrator.printQueryResults();
+	}
+
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public List<Instructor> getInstructors() {
+		return instructors;
+	}
+
+	public List<PerformanceRecord> getPerformanceRecords() {
+		return performanceRecords;
+	}
+
+	public CourseCatalogue getCourseCatalogue() {
+		return courseCatalogue;
+	}
+
+	
+	public List<Assignment> getAssignments() {
+		return assignments;
+	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public List<Prereq> getPrereqs() {
+		return prereqs;
+	}
+
 }
