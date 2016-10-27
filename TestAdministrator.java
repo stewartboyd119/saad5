@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.Arrays;
 
 import org.junit.After;
@@ -240,5 +241,68 @@ public class TestAdministrator {
 
 		assertTrue(Arrays.equals(outputShouldBe, output));
 	}
+
+	@Test
+	public void testStudentHighestGrade() {
+		administrator.studentsFpath = "bin/test_case_0/students.csv";
+		administrator.instructorsFpath = "bin/test_case_0/instructors.csv";
+		administrator.recordsFpath = "bin/test_case_0/records.csv";
+		administrator.coursesFpath = "bin/test_case_0/courses.csv";
+		administrator.assignmentsFpath = "bin/CSV/assignments.csv";
+		administrator.prereqsFpath = "bin/CSV/prereqs.csv";
+		administrator.requestsFpath = "bin/CSV/requests.csv";
+		administrator.readAllData();
+
+		Course course = null;
+		Student student = null;
+		try {
+			course = administrator.getCourseCatalogue().getCourseByID(29);
+			student = administrator.getStudentByID(14);
+		} catch (IDNotFound e) {
+			org.junit.Assert.fail();
+		}
+		Grade grade = administrator.highestGradeInCourse(student, course);
+		assertTrue(grade == Grade.C);
+	}
+	@Test
+	public void testStudentHighestGradeWithRepeatRecords() {
+		administrator.studentsFpath = "bin/test_case_0/students.csv";
+		administrator.instructorsFpath = "bin/test_case_0/instructors.csv";
+		administrator.recordsFpath = "bin/test_case_0/records2.csv";
+		administrator.coursesFpath = "bin/test_case_0/courses.csv";
+		administrator.assignmentsFpath = "bin/CSV/assignments.csv";
+		administrator.prereqsFpath = "bin/CSV/prereqs.csv";
+		administrator.requestsFpath = "bin/CSV/requests.csv";
+		administrator.readAllData();
+
+		Course course = null;
+		Student student = null;
+		try {
+			course = administrator.getCourseCatalogue().getCourseByID(24);
+			student = administrator.getStudentByID(15);
+		} catch (IDNotFound e) {
+			org.junit.Assert.fail();
+		}
+		Grade grade = administrator.highestGradeInCourse(student, course);
+		assertTrue(grade == Grade.B);
+	}
+
+	@Test
+	public void testExampleFromAssignment6() {
+		File f = new File("OMSCS6310_Assignment6_TestCase/students.csv");
+		System.out.println(f.getAbsolutePath());
+		administrator.studentsFpath = "OMSCS6310_Assignment6_TestCase/students.csv";
+		administrator.instructorsFpath = "OMSCS6310_Assignment6_TestCase/instructors.csv";
+		administrator.recordsFpath = "OMSCS6310_Assignment6_TestCase/records.csv";
+		administrator.coursesFpath = "OMSCS6310_Assignment6_TestCase/courses.csv";
+		administrator.assignmentsFpath = "OMSCS6310_Assignment6_TestCase/assignments.csv";
+		administrator.prereqsFpath = "OMSCS6310_Assignment6_TestCase/prereqs.csv";
+		administrator.requestsFpath = "OMSCS6310_Assignment6_TestCase/requests.csv";
+		administrator.start();
+		Integer[] output = administrator.requestsDigest();
+		Integer[] outputShouldBe = {6, 3, 1, 1, 1};
+		assertTrue(Arrays.equals(outputShouldBe, output));
+	}
+	
 
 }

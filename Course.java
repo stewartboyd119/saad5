@@ -1,6 +1,6 @@
 import java.util.HashSet;
 import java.util.ArrayList;
-
+import java.util.List;
 public class Course {
 	private String title;
 	private String description;
@@ -9,6 +9,7 @@ public class Course {
 	private Boolean isAvailableSpring;
 	private Boolean isAvailableSummer;
 	private HashSet<Course> prereqs;
+	private List<CourseInstance> courseInstances = new ArrayList<CourseInstance>();
 	
 
 	Course(Integer id, String title, 
@@ -131,4 +132,53 @@ public class Course {
 		this.prereqs = prereqs;
 	}
 
+	public List<CourseInstance> getCourseInstances() {
+		return courseInstances;
+	}
+
+	public void setCourseInstances(List<CourseInstance> courseInstances) {
+		this.courseInstances = courseInstances;
+	}
+
+	public Integer getNumberOfClassInstances() {
+		return courseInstances.size();
+	}
+
+	public Boolean areAvailableSeats() {
+		return getNumberOfAvailableSeats() > 0;
+	}
+
+	public Integer getNumberOfAvailableSeats() {
+		Integer numberOfSeats = 0;
+		for (CourseInstance courseInstance: courseInstances) {
+			numberOfSeats += courseInstance.getNumberOfAvailableSeats();
+		}
+		return numberOfSeats;
+	}
+
+	public CourseInstance courseInstanceWithAvailableSeats() {
+		/*
+		 * Returns a courseInstance with available seats or null if none
+		 * are available.
+		 */
+		for (CourseInstance courseInstance: courseInstances) {
+			if (courseInstance.getNumberOfAvailableSeats() > 0) {
+				return courseInstance;
+			}
+		}
+		return null;
+	}
+
+	public void registerStudent(Student student) {
+		CourseInstance courseInstance = courseInstanceWithAvailableSeats();
+		if (courseInstance == null) {
+			System.out.println("No available Seats. Cant register");
+		} else {
+			courseInstance.registerStudent(student);
+		}
+	}
+
+	public void addCourseInstance(CourseInstance courseInstance) {
+		courseInstances.add(courseInstance);
+	}
 }

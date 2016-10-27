@@ -1,18 +1,22 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class CourseInstance {
 
 	private Course course;
 	private Instructor instructor;
 	private Integer numberOfSeats;
+	private Integer numberOfAvailableSeats;
 
 	CourseInstance(Course course, Instructor instructor, Integer numberOfSeats) {
 		this.setCourse(course);
 		this.setInstructor(instructor);
-		this.setNumberOfSeats(numberOfSeats);
+		this.numberOfSeats = numberOfSeats;
+		this.numberOfAvailableSeats = numberOfSeats;
+		course.addCourseInstance(this);
 	}
 
-	CourseInstance(Assignment assignment, ArrayList<Course> courses, ArrayList<Instructor> instructors) throws IDNotFound {
+	CourseInstance(Assignment assignment, List<Course> courses, List<Instructor> instructors) throws IDNotFound {
 
 		for (Course course : courses) {
 			if (course.getID() == assignment.getCourseID()) {
@@ -30,7 +34,9 @@ public class CourseInstance {
 		if (course == null || instructor == null) {
 			throw new IDNotFound();
 		}
-		this.setNumberOfSeats(assignment.getNumberOfSeats());
+		this.numberOfSeats = assignment.getNumberOfSeats();
+		this.numberOfAvailableSeats = numberOfSeats;
+		course.addCourseInstance(this);
 	}
 
 	public Course getCourse() {
@@ -57,6 +63,10 @@ public class CourseInstance {
 		this.numberOfSeats = numberOfSeats;
 	}
 
+	public Integer getNumberOfAvailableSeats() {
+		return numberOfAvailableSeats;
+	}
+
 	public Boolean equals(CourseInstance courseInstance) {
 		if (!this.course.equals(courseInstance.getCourse())) {
 			return false;
@@ -73,6 +83,13 @@ public class CourseInstance {
 	public Boolean notEquals(CourseInstance courseInstance) {
 		return !this.equals(courseInstance);
 	}
-	
+
+	public Boolean areSeatsAvailable() {
+		return numberOfAvailableSeats > 0;
+	}
+
+	public void registerStudent(Student student) {
+		this.numberOfAvailableSeats -= 1;
+	}
 
 }

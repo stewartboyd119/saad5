@@ -42,4 +42,14 @@ public class TestCourse {
 		assertEquals(course.getPrereqs(), prereqs);
 	}
 
+	@Test
+	public void testCourseInstantiation() {
+		Instructor instructor = new Instructor(1, "", "", "");
+		Student student = new Student(1, "", "", "");
+		CourseInstance courseInstance = new CourseInstance(courseAvailableAllSemesters, instructor, 2);
+		//courseAvailableAllSemesters.addCourseInstance(courseInstance);
+		courseInstance.registerStudent(student);
+		assertTrue(courseInstance.getNumberOfAvailableSeats().equals(1));
+		assertTrue(courseAvailableAllSemesters.getNumberOfAvailableSeats().equals(1));
+	}
 }

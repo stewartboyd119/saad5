@@ -10,6 +10,10 @@ class CourseCatalogue implements Iterable<Course>{
 	private List<Course> courses;
 	//private Integer id;
 
+	CourseCatalogue() {
+		courses = new ArrayList<Course>();
+	}
+
 	CourseCatalogue(List<Course> courses) { 
 		this.courses = courses;
 	}

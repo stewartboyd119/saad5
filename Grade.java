@@ -35,6 +35,21 @@ public enum Grade {
 			throw new IllegalArgumentException();
 		}
 	}
+
+	public Boolean isHigher(Grade grade) {
+		if (this.compareTo(grade) == -1) {
+			return true;
+		}
+		return false;
+	}
+
+	public Boolean isFailing() {
+		return this == Grade.F;
+	}
+
+	public Boolean isPassing() {
+		return !this.isFailing();
+	}
 }
 
 final class GradeString {

@@ -87,4 +87,30 @@ public class TestGrade {
 		exception.expect(IllegalArgumentException.class);
 		Grade willFail = Grade.gradeFromString("dog");
 	}
+
+	@Test
+	public void testComparison() {
+		assertTrue(Grade.A.isHigher(Grade.B));
+		assertFalse(Grade.B.isHigher(Grade.B));
+		assertFalse(Grade.C.isHigher(Grade.B));
+	}
+
+	@Test
+	public void testFIsFailingGrade() {
+		assertTrue(Grade.F.isFailing());
+	}
+
+	@Test
+	public void testFIsNotPassingGrade() {
+		assertFalse(Grade.F.isPassing());
+	}
+
+
+	@Test
+	public void testABCDIsPassingGrade() {
+		assertTrue(Grade.A.isPassing());
+		assertTrue(Grade.B.isPassing());
+		assertTrue(Grade.C.isPassing());
+		assertTrue(Grade.D.isPassing());
+	}
 }
