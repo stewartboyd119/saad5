@@ -92,4 +92,9 @@ public class CourseInstance {
 		this.numberOfAvailableSeats -= 1;
 	}
 
+	public void addSeats(Integer increment) {
+		numberOfSeats += increment;
+		numberOfAvailableSeats += increment;
+	}
+
 }

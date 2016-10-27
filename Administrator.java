@@ -47,23 +47,60 @@ public class Administrator {
 		 * request queue.
 		 */
 		Request request = requests.remove(0);
+		RequestStatus requestStatus = accessRequest(request);
+		//Course course = this.courseCatalogue.getCourseByID(request.getCourseID());
+		//Student student = this.getStudentByID(request.getStudentID());
+		//System.out.println(canRetakeCourse(student, course));
+		switch (requestStatus) {
+		case noPrereqs:
+			deniedRequestsNoPrereq.add(request);
+			break;
+		case alreadyTaking:
+			deniedRequestsAlreadyTaken.add(request);
+			break;
+		case noSeats:
+			deniedRequestsNoSeats.add(request);
+			break;
+		case valid:
+			/*
+			Course course = this.courseCatalogue.getCourseByID(request.getCourseID());
+			Student student = this.getStudentByID(request.getStudentID());
+			course.registerStudent(student);
+			validRequests.add(request);
+			*/
+			processValidRequest(request);
+			break;
+		}
+	}
+
+	public void processValidRequest(Request request) {
 		try {
 			Course course = this.courseCatalogue.getCourseByID(request.getCourseID());
 			Student student = this.getStudentByID(request.getStudentID());
-			System.out.println(canRetakeCourse(student, course));
+			course.registerStudent(student);
+			validRequests.add(request);
+		} catch (IDNotFound e) {
+			System.out.println("Invalid request. Couldnt find either course or student id");
+		}
+	}
+
+	public RequestStatus accessRequest(Request request) {
+		RequestStatus requestStatus = null;
+		try {
+			Course course = this.courseCatalogue.getCourseByID(request.getCourseID());
+			Student student = this.getStudentByID(request.getStudentID());
 			if (!hasPassingGradesForPrereqs(student, course)) {
-				deniedRequestsNoPrereq.add(request);
+				return RequestStatus.noPrereqs;
 			} else if (!canRetakeCourse(student, course)) {
-				deniedRequestsAlreadyTaken.add(request);
+				return RequestStatus.alreadyTaking;
 			} else if (course.getNumberOfAvailableSeats().equals(0)) {
-				//
-				deniedRequestsNoSeats.add(request);
+				return RequestStatus.noSeats;
 			} else {
-				course.registerStudent(student);
-				validRequests.add(request);
+				return RequestStatus.valid;
 			}
 		} catch (IDNotFound e) {
 			System.out.println("Invalid request. Couldnt find either course or student id");
+			return requestStatus;
 		}
 	}
 
@@ -397,3 +434,4 @@ public class Administrator {
 	}
 
 }
+

@@ -12,7 +12,7 @@ public enum Grade {
 	}
 
 	public Boolean isEqualToString(String stringToCheck) {
-		return this.grade.equals(stringToCheck.trim().toLowerCase());
+		return this.grade.equals(stringToCheck.trim().toUpperCase());
 	}
 
 	public static Grade gradeFromString(String stringToCheck) {
@@ -53,9 +53,9 @@ public enum Grade {
 }
 
 final class GradeString {
-	static final String a = "a".trim().toLowerCase();
-	static final String b = "b".trim().toLowerCase();
-	static final String c = "c".trim().toLowerCase();
-	static final String d = "d".trim().toLowerCase();
-	static final String f = "f".trim().toLowerCase();
+	static final String a = "A".trim().toUpperCase();
+	static final String b = "B".trim().toUpperCase();
+	static final String c = "C".trim().toUpperCase();
+	static final String d = "D".trim().toUpperCase();
+	static final String f = "F".trim().toUpperCase();
 }

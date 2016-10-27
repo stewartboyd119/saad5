@@ -5,6 +5,7 @@ public class Course {
 	private String title;
 	private String description;
 	private Integer id;
+	private Integer additionalSeats = 0;
 	private Boolean isAvailableFall;
 	private Boolean isAvailableSpring;
 	private Boolean isAvailableSummer;
@@ -148,12 +149,25 @@ public class Course {
 		return getNumberOfAvailableSeats() > 0;
 	}
 
+
+	public void addSeats(Integer number) {
+		if (number > 0) {
+			if (courseInstances.size() > 0){
+				courseInstances.get(0).addSeats(number);
+				
+			} else {
+				this.additionalSeats += number;
+			}
+		}
+	}
+
+	
 	public Integer getNumberOfAvailableSeats() {
 		Integer numberOfSeats = 0;
 		for (CourseInstance courseInstance: courseInstances) {
 			numberOfSeats += courseInstance.getNumberOfAvailableSeats();
 		}
-		return numberOfSeats;
+		return numberOfSeats + additionalSeats;
 	}
 
 	public CourseInstance courseInstanceWithAvailableSeats() {
@@ -181,4 +195,5 @@ public class Course {
 	public void addCourseInstance(CourseInstance courseInstance) {
 		courseInstances.add(courseInstance);
 	}
+
 }
